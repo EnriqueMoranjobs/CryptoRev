@@ -15,7 +15,7 @@ public class Main {
                System.out.println(myResultset.getString("id")+" "+myResultset.getString("fechahora")+" "+myResultset.getString("cotizacion"));
            }
        }catch(Exception e){
-           System.out.println("fatal");
+           System.out.println("no conecta");
        }
 
 
