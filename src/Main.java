@@ -3,20 +3,19 @@ import java.sql.*;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
-       try {
-           Connection miConexion = DriverManager.getConnection("jdbc:mysql://localhost/cryptodb","root","123456");
-           Statement miStatement = miConexion.createStatement();
+        Timestamp ts = null;
+        try {
+            Connection miConexion = DriverManager.getConnection("jdbc:mysql://localhost/cryptodb", "root", "123456");
+            //Al ser id auto-increment no hace falta añadirlo
+            PreparedStatement ps = miConexion.prepareStatement("Insert into cryptodb (fechahora,cotizacion)values(?,?)");
 
-           //Ejecutar mysql
-           ResultSet myResultset = miStatement.executeQuery("SELECT * FROM bitcoindolar");
-
-           // LEER EL RESULTSET
-           while (myResultset.next()){
-               System.out.println(myResultset.getString("id")+" "+myResultset.getString("fechahora")+" "+myResultset.getString("cotizacion"));
-           }
-       }catch(Exception e){
-           System.out.println("no conecta");
-       }
+            //Ejecutar mysql
+            ps.setTimestamp(1, ts.valueOf("2022-11-12 10:30:45"));
+            ps.setFloat(2, (float) 20200.3);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("no conecta");
+        }
 
 
     }
